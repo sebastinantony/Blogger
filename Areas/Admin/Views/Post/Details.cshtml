@@ -1,0 +1,57 @@
+﻿@model Blogger.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Post</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Date)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Comment1.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comment1.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Publish)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Publish)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Category1.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Category1.Name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
