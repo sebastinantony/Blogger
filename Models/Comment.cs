@@ -14,17 +14,13 @@ namespace Blogger.Models
     
     public partial class Comment
     {
-        public Comment()
-        {
-            this.Posts = new HashSet<Post>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Comment1 { get; set; }
         public string Publish { get; set; }
         public string Rating { get; set; }
+        public Nullable<int> PostId { get; set; }
     
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

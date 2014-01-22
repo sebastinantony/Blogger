@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -36,6 +37,13 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Rating)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Post.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Post.Name)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

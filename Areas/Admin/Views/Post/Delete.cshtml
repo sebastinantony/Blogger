@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -32,24 +33,10 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Comment1.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Comment1.Name)
-    </div>
-
-    <div class="display-label">
          @Html.DisplayNameFor(model => model.Publish)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Publish)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Category1.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Category1.Name)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

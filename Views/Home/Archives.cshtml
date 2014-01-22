@@ -1,0 +1,21 @@
+﻿@model List<Blogger.Models.ArchivesSet>
+
+
+@foreach (var dateItem in Model)
+{
+    @Html.DisplayFor(modelItem => dateItem.Month) 
+    @Html.DisplayFor(modelItem => dateItem.Year)
+    <br />    
+    foreach (var postItem in dateItem.PostList)
+    {
+        @Html.DisplayFor(modelItem => postItem.Name)
+        <br />
+        
+    }                                             
+    <br /> <br />
+    
+
+}
+
+
+

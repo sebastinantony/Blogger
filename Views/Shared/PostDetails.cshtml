@@ -1,37 +1,39 @@
-﻿@model Blogger.Models.Category
+﻿@model Blogger.Models.Post
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
 <fieldset>
-    <legend>Category</legend>
+    <legend>Post</legend>
 
-    <div class="display-label">
+    <h1>
          @Html.DisplayNameFor(model => model.Name)
-    </div>
+    </h1>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
-    <div class="display-label">
+    <h1>
          @Html.DisplayNameFor(model => model.Description)
-    </div>
+    </h1>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Post.Name)
-    </div>
+    <h1>
+         @Html.DisplayNameFor(model => model.Date)
+    </h1>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Post.Name)
+        @Html.DisplayFor(model => model.Date)
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@{Html.RenderAction("CategoryNavigation");}
+@{Html.RenderAction("PostList");}
+
+@{Html.RenderAction("Archives");}
+
+@{Html.RenderAction("Comments");}

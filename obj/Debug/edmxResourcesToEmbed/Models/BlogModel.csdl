@@ -4,14 +4,13 @@
     <EntitySet Name="Categories" EntityType="BloggerModel.Category" />
     <EntitySet Name="Comments" EntityType="BloggerModel.Comment" />
     <EntitySet Name="Posts" EntityType="BloggerModel.Post" />
-    <EntitySet Name="sysdiagrams" EntityType="BloggerModel.sysdiagram" />
-    <AssociationSet Name="FK_Post_Category" Association="BloggerModel.FK_Post_Category">
+    <AssociationSet Name="FK_Category_Post" Association="BloggerModel.FK_Category_Post">
+      <End Role="Post" EntitySet="Posts" />
       <End Role="Category" EntitySet="Categories" />
-      <End Role="Post" EntitySet="Posts" />
     </AssociationSet>
-    <AssociationSet Name="FK_Post_Comment" Association="BloggerModel.FK_Post_Comment">
-      <End Role="Comment" EntitySet="Comments" />
+    <AssociationSet Name="FK_Comment_Post" Association="BloggerModel.FK_Comment_Post">
       <End Role="Post" EntitySet="Posts" />
+      <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Category">
@@ -21,7 +20,8 @@
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Posts" Relationship="BloggerModel.FK_Post_Category" FromRole="Category" ToRole="Post" />
+    <Property Type="Int32" Name="PostId" />
+    <NavigationProperty Name="Post" Relationship="BloggerModel.FK_Category_Post" FromRole="Category" ToRole="Post" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -32,7 +32,8 @@
     <Property Type="String" Name="Comment1" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Publish" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Rating" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Posts" Relationship="BloggerModel.FK_Post_Comment" FromRole="Comment" ToRole="Post" />
+    <Property Type="Int32" Name="PostId" />
+    <NavigationProperty Name="Post" Relationship="BloggerModel.FK_Comment_Post" FromRole="Comment" ToRole="Post" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -41,44 +42,32 @@
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="Date" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="Comment" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
     <Property Type="String" Name="Publish" MaxLength="5" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="Category" />
-    <NavigationProperty Name="Category1" Relationship="BloggerModel.FK_Post_Category" FromRole="Post" ToRole="Category" />
-    <NavigationProperty Name="Comment1" Relationship="BloggerModel.FK_Post_Comment" FromRole="Post" ToRole="Comment" />
+    <NavigationProperty Name="Categories" Relationship="BloggerModel.FK_Category_Post" FromRole="Post" ToRole="Category" />
+    <NavigationProperty Name="Comments" Relationship="BloggerModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Type="Int32" Name="principal_id" Nullable="false" />
-    <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="version" />
-    <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <Association Name="FK_Post_Category">
-    <End Type="BloggerModel.Category" Role="Category" Multiplicity="0..1" />
-    <End Type="BloggerModel.Post" Role="Post" Multiplicity="*" />
+  <Association Name="FK_Category_Post">
+    <End Type="BloggerModel.Post" Role="Post" Multiplicity="0..1" />
+    <End Type="BloggerModel.Category" Role="Category" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Category">
+      <Principal Role="Post">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Post">
-        <PropertyRef Name="Category" />
+      <Dependent Role="Category">
+        <PropertyRef Name="PostId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Post_Comment">
-    <End Type="BloggerModel.Comment" Role="Comment" Multiplicity="0..1" />
-    <End Type="BloggerModel.Post" Role="Post" Multiplicity="*" />
+  <Association Name="FK_Comment_Post">
+    <End Type="BloggerModel.Post" Role="Post" Multiplicity="0..1" />
+    <End Type="BloggerModel.Comment" Role="Comment" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Comment">
+      <Principal Role="Post">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Post">
-        <PropertyRef Name="Comment" />
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

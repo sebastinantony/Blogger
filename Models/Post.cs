@@ -14,15 +14,19 @@ namespace Blogger.Models
     
     public partial class Post
     {
+        public Post()
+        {
+            this.Categories = new HashSet<Category>();
+            this.Comments = new HashSet<Comment>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Date { get; set; }
-        public Nullable<int> Comment { get; set; }
+        public System.DateTime Date { get; set; }
         public string Publish { get; set; }
-        public Nullable<int> Category { get; set; }
     
-        public virtual Category Category1 { get; set; }
-        public virtual Comment Comment1 { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

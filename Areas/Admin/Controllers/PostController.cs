@@ -18,8 +18,7 @@ namespace Blogger.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var posts = db.Posts.Include(p => p.Category1).Include(p => p.Comment1);
-            return View(posts.ToList());
+            return View(db.Posts.ToList());
         }
 
         //
@@ -40,8 +39,6 @@ namespace Blogger.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Category = new SelectList(db.Categories, "Id", "Name");
-            ViewBag.Comment = new SelectList(db.Comments, "Id", "Name");
             return View();
         }
 
@@ -59,8 +56,6 @@ namespace Blogger.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Category = new SelectList(db.Categories, "Id", "Name", post.Category);
-            ViewBag.Comment = new SelectList(db.Comments, "Id", "Name", post.Comment);
             return View(post);
         }
 
@@ -74,8 +69,6 @@ namespace Blogger.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Category = new SelectList(db.Categories, "Id", "Name", post.Category);
-            ViewBag.Comment = new SelectList(db.Comments, "Id", "Name", post.Comment);
             return View(post);
         }
 
@@ -92,8 +85,6 @@ namespace Blogger.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Category = new SelectList(db.Categories, "Id", "Name", post.Category);
-            ViewBag.Comment = new SelectList(db.Comments, "Id", "Name", post.Comment);
             return View(post);
         }
 

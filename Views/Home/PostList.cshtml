@@ -1,10 +1,4 @@
-﻿@model IEnumerable<Blogger.Models.Comment>
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+﻿@model IEnumerable<Blogger.Models.Post>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,13 +9,13 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Comment1)
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Publish)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
         </th>
         <th></th>
     </tr>
@@ -32,13 +26,13 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Comment1)
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Publish)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -9,20 +9,21 @@ using Blogger.Models;
 
 namespace Blogger.Areas.Admin.Controllers
 {
-    public class CommentController : Controller
+    public class CommentsController : Controller
     {
         private BloggerEntities db = new BloggerEntities();
 
         //
-        // GET: /Admin/Comment/
+        // GET: /Admin/Comments/
 
         public ActionResult Index()
         {
-            return View(db.Comments.ToList());
+            var comments = db.Comments.Include(c => c.Post);
+            return View(comments.ToList());
         }
 
         //
-        // GET: /Admin/Comment/Details/5
+        // GET: /Admin/Comments/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -35,15 +36,16 @@ namespace Blogger.Areas.Admin.Controllers
         }
 
         //
-        // GET: /Admin/Comment/Create
+        // GET: /Admin/Comments/Create
 
         public ActionResult Create()
         {
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name");
             return View();
         }
 
         //
-        // POST: /Admin/Comment/Create
+        // POST: /Admin/Comments/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -56,11 +58,12 @@ namespace Blogger.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name", comment.PostId);
             return View(comment);
         }
 
         //
-        // GET: /Admin/Comment/Edit/5
+        // GET: /Admin/Comments/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -69,11 +72,12 @@ namespace Blogger.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name", comment.PostId);
             return View(comment);
         }
 
         //
-        // POST: /Admin/Comment/Edit/5
+        // POST: /Admin/Comments/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -85,11 +89,12 @@ namespace Blogger.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name", comment.PostId);
             return View(comment);
         }
 
         //
-        // GET: /Admin/Comment/Delete/5
+        // GET: /Admin/Comments/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -102,7 +107,7 @@ namespace Blogger.Areas.Admin.Controllers
         }
 
         //
-        // POST: /Admin/Comment/Delete/5
+        // POST: /Admin/Comments/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -5,12 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2e50f05c752f4804b1661cf0a89b9df1" Name="Diagram1">
-        <EntityTypeShape EntityType="BloggerModel.Category" Width="1.5" PointX="0.75" PointY="6.375" />
-        <EntityTypeShape EntityType="BloggerModel.Comment" Width="1.5" PointX="3.75" PointY="7.875" />
-        <EntityTypeShape EntityType="BloggerModel.Post" Width="1.5" PointX="6.75" PointY="9.375" />
-        <EntityTypeShape EntityType="BloggerModel.sysdiagram" Width="1.5" PointX="2.2041453524511985" PointY="0.95703119084100763" />
-        <AssociationConnector Association="BloggerModel.FK_Post_Category" />
-        <AssociationConnector Association="BloggerModel.FK_Post_Comment" />
+        <EntityTypeShape EntityType="BloggerModel.Category" Width="1.5" PointX="2.6060102072572384" PointY="4.3779079189421184" />
+        <EntityTypeShape EntityType="BloggerModel.Comment" Width="1.5" PointX="4.9827438020067021" PointY="1.9473949530848278" />
+        <EntityTypeShape EntityType="BloggerModel.Post" Width="1.5" PointX="6.5282865103931575" PointY="12.38972798566787" />
+        <AssociationConnector Association="BloggerModel.FK_Category_Post" />
+        <AssociationConnector Association="BloggerModel.FK_Comment_Post" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,14 +4,13 @@
     <EntitySet Name="Category" EntityType="BloggerModel.Store.Category" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comment" EntityType="BloggerModel.Store.Comment" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Post" EntityType="BloggerModel.Store.Post" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="BloggerModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Post_Category" Association="BloggerModel.Store.FK_Post_Category">
+    <AssociationSet Name="FK_Category_Post" Association="BloggerModel.Store.FK_Category_Post">
+      <End Role="Post" EntitySet="Post" />
       <End Role="Category" EntitySet="Category" />
-      <End Role="Post" EntitySet="Post" />
     </AssociationSet>
-    <AssociationSet Name="FK_Post_Comment" Association="BloggerModel.Store.FK_Post_Comment">
-      <End Role="Comment" EntitySet="Comment" />
+    <AssociationSet Name="FK_Comment_Post" Association="BloggerModel.Store.FK_Comment_Post">
       <End Role="Post" EntitySet="Post" />
+      <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Category">
@@ -21,6 +20,7 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="varchar(max)" />
     <Property Name="Description" Type="varchar(max)" />
+    <Property Name="PostId" Type="int" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -31,6 +31,7 @@
     <Property Name="Comment" Type="varchar(max)" />
     <Property Name="Publish" Type="varchar(max)" />
     <Property Name="Rating" Type="varchar(max)" />
+    <Property Name="PostId" Type="int" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -39,42 +40,30 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="varchar(max)" />
     <Property Name="Description" Type="varchar(max)" />
-    <Property Name="Date" Type="varchar" MaxLength="50" />
-    <Property Name="Comment" Type="int" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="Publish" Type="varchar" MaxLength="5" />
-    <Property Name="Category" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <Association Name="FK_Post_Category">
-    <End Role="Category" Type="BloggerModel.Store.Category" Multiplicity="0..1" />
-    <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="*" />
+  <Association Name="FK_Category_Post">
+    <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="0..1" />
+    <End Role="Category" Type="BloggerModel.Store.Category" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Category">
+      <Principal Role="Post">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Post">
-        <PropertyRef Name="Category" />
+      <Dependent Role="Category">
+        <PropertyRef Name="PostId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Post_Comment">
-    <End Role="Comment" Type="BloggerModel.Store.Comment" Multiplicity="0..1" />
-    <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="*" />
+  <Association Name="FK_Comment_Post">
+    <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="0..1" />
+    <End Role="Comment" Type="BloggerModel.Store.Comment" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Comment">
+      <Principal Role="Post">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Post">
-        <PropertyRef Name="Comment" />
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
