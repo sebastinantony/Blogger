@@ -14,6 +14,9 @@
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="BloggerModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
           <ScalarProperty Name="PostId" ColumnName="PostId" />
           <ScalarProperty Name="Rating" ColumnName="Rating" />
           <ScalarProperty Name="Publish" ColumnName="Publish" />

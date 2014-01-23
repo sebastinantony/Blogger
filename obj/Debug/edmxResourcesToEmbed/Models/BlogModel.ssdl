@@ -32,6 +32,9 @@
     <Property Name="Publish" Type="varchar(max)" />
     <Property Name="Rating" Type="varchar(max)" />
     <Property Name="PostId" Type="int" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="IpAddress" Type="varchar(max)" />
+    <Property Name="Location" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Post">
     <Key>

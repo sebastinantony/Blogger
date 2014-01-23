@@ -33,6 +33,9 @@
     <Property Type="String" Name="Publish" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Rating" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="PostId" />
+    <Property Type="DateTime" Name="DateTime" Precision="3" />
+    <Property Type="String" Name="IpAddress" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Location" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Post" Relationship="BloggerModel.FK_Comment_Post" FromRole="Comment" ToRole="Post" />
   </EntityType>
   <EntityType Name="Post">

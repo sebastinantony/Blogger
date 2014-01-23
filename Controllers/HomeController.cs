@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blogger.Models;
@@ -100,14 +102,60 @@ namespace Blogger.Controllers
         [ChildActionOnly]
         public ActionResult Comments()
         {
-            int id = int.Parse(Request.QueryString["id"]);
-            var comments = from c in db.Comments
-                           where c.PostId == id
-                           select c;
-            return PartialView(comments);
+            _id = int.Parse(Request.QueryString["id"]);
+            var comment = from p in db.Comments
+                          where (p.Publish == "Yes" && p.PostId == _id)
+                          select p;
+            return PartialView(comment);
         }
 
         [ChildActionOnly]
-        public ActionResult 
+        public ActionResult CommentsCreate()
+        {
+            
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name");
+            return PartialView();
+        }
+
+        [ChildActionOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CommentsCreate(Comment comment)
+        {
+            string ipAddress = string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.UserHostAddress) ? string.Empty : System.Web.HttpContext.Current.Request.UserHostAddress;
+            
+            if (ModelState.IsValid)
+            {
+                comment.Location =  GetContactDetails(BloggerConstants.LocationFinder + ipAddress);
+                comment.IpAddress = ipAddress;
+                comment.Publish = "No";
+                comment.DateTime = DateTime.Now;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+            }
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name",comment.PostId);
+            ViewBag.Message = "Thank u for you comments , Will reviewed by administrator";
+            return PartialView(comment);
+        }
+
+        private int _id;
+        public int id
+        {
+            get { return id; }
+            set { id = int.Parse(string.IsNullOrEmpty(Request.QueryString["id"])? "0":Request.QueryString["id"]); }
+        }
+
+        static string GetContactDetails(string url)
+        {
+            HttpWebRequest request = null;
+            request = HttpWebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream resStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(resStream);
+            string result = reader.ReadToEnd();
+            return result;
+
+        }
     }
 }

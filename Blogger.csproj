@@ -371,6 +371,7 @@
     <Content Include="Views\Home\PostList.cshtml" />
     <Content Include="Views\Home\Archives.cshtml" />
     <Content Include="Views\Home\Comments.cshtml" />
+    <Content Include="Views\Home\CommentsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

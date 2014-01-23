@@ -14,9 +14,8 @@ namespace Blogger.Models
         public IQueryable<Post> PostList;
     }
 
-    public class Dates 
+    public class BloggerConstants
     {
-        public int Month;
-        public int Year;
+        public static string LocationFinder = "http://api.hostip.info/get_html.php?ip=";        
     }
 }

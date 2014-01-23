@@ -20,6 +20,9 @@ namespace Blogger.Models
         public string Publish { get; set; }
         public string Rating { get; set; }
         public Nullable<int> PostId { get; set; }
+        public Nullable<System.DateTime> DateTime { get; set; }
+        public string IpAddress { get; set; }
+        public string Location { get; set; }
     
         public virtual Post Post { get; set; }
     }
