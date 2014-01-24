@@ -16,20 +16,10 @@ namespace Blogger.Controllers
     {
         private BloggerEntities db = new BloggerEntities();
 
-        public ActionResult Index(int id=0)
+        public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            //var post = from c in db.Posts
-            //           where c.Id == id
-            //           select c.Name; 
-            //return View(post.ToList());
-
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
+            return View();
         }
 
         public ActionResult About()
@@ -74,6 +64,7 @@ namespace Blogger.Controllers
 
             var postDate = from p in db.Posts
                            group p by new { Month = p.Date.Month, Year = p.Date.Year } into d
+                           orderby d.Key.Year descending
                            select new
                            {
                                Month = d.Key.Month,
@@ -131,7 +122,7 @@ namespace Blogger.Controllers
                 comment.Publish = "No";
                 comment.DateTime = DateTime.Now;
                 db.Comments.Add(comment);
-                db.SaveChanges();
+                db.SaveChanges();             
             }
             ViewBag.PostId = new SelectList(db.Posts, "Id", "Name",comment.PostId);
             ViewBag.Message = "Thank u for you comments , Will reviewed by administrator";

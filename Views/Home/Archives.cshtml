@@ -1,21 +1,28 @@
 ﻿@model List<Blogger.Models.ArchivesSet>
 
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">
+            <h3>Archives</h3>
+        </li>
+        @foreach (var dateItem in Model)
+        {
+            <li>
+                <h3>@Html.DisplayFor(modelItem => dateItem.Month)
+                    @Html.DisplayFor(modelItem => dateItem.Year)
 
-@foreach (var dateItem in Model)
-{
-    @Html.DisplayFor(modelItem => dateItem.Month) 
-    @Html.DisplayFor(modelItem => dateItem.Year)
-    <br />    
-    foreach (var postItem in dateItem.PostList)
-    {
-        @Html.DisplayFor(modelItem => postItem.Name)
-        <br />
-        
-    }                                             
-    <br /> <br />
-    
-
-}
+                </h3>
+            </li>
+            foreach (var postItem in dateItem.PostList)
+            {
+            <li>@Html.ActionLink(postItem.Name,
+                "Browse", "Store",
+                new { Genre = postItem.Name }, null)
+            </li>
+            }
+        }
+    </ul>
+</div>
 
 
 
