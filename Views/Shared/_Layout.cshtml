@@ -48,12 +48,12 @@
         <div class="container marketing">
             <div class="row">
                 <div class="span8">
-                    @{Html.RenderAction("PostList");}
+                    @{Html.RenderAction("PostList", "Home", new { area="" });}
                 </div>
 
                 <div class="span4">
-                    @{Html.RenderAction("CategoryNavigation");}
-                    @{Html.RenderAction("Archives");}
+                    @{Html.RenderAction("CategoryNavigation", "Home", new { area = "" });}
+                    @{Html.RenderAction("Archives", "Home", new { area = "" });}
 
                     <ul class="tagcloud">
                         <li><a href="#" class="tag3">markup</a></li>
