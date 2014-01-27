@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Http.Routing;
@@ -59,5 +61,20 @@ namespace Blogger.Models
         }
 
 
+    }
+
+    public static class Location
+    {
+        public static string GetContactDetails(string url)
+        {
+            HttpWebRequest request = null;
+            request = HttpWebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream resStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(resStream);
+            string result = reader.ReadToEnd();
+            return result;
+        }
     }
 }

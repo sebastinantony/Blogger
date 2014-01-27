@@ -129,8 +129,29 @@ namespace Blogger.Controllers
         public ActionResult CommentDetails(int? id, string postName)
         {
             var comment = from c in db.Comments
-                          where c.Post.Id == id
+                          where c.Post.Id == id  && c.Publish == "Yes"
                           select c; 
+            return PartialView(comment);
+        }
+
+        [ChildActionOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CommentsCreate(Comment comment)
+        {
+            string ipAddress = string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.UserHostAddress) ? string.Empty : System.Web.HttpContext.Current.Request.UserHostAddress;
+
+            if (ModelState.IsValid)
+            {
+                comment.Location = Location.GetContactDetails(BloggerConstants.LocationFinder + ipAddress);
+                comment.IpAddress = ipAddress;
+                comment.Publish = "No";
+                comment.DateTime = DateTime.Now;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+            }
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Name", comment.PostId);
+            ViewBag.Message = "Thank u for you comments , Will reviewed by administrator";
             return PartialView(comment);
         }
 
