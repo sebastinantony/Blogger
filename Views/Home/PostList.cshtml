@@ -4,12 +4,15 @@
 @foreach (var item in Model)
 {
         
-    <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+    <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)#comments">
+        <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+        </a>
         
     <h4>Written on @Html.DisplayFor(modelItem => item.Date).</h4>
         
     <h5>
-        <a href="#comments"><i class="icon-comment"></i>&nbsp;@item.Comments.Count() comments</a>
+        <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)#comments">
+            <i class="icon-comment"></i>&nbsp;@item.Comments.Count() comments</a>
         &nbsp;&nbsp;
     </h5>
         
