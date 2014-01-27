@@ -15,9 +15,8 @@
             </li>
             foreach (var postItem in dateItem.PostList)
             {
-            <li>@Html.ActionLink(postItem.Name,
-                "Browse", "Store",
-                new { Genre = postItem.Name }, null)
+            <li>
+                <a href="~/Post/@postItem.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(postItem.Name)" >@postItem.Name </a> 
             </li>
             }
         }
