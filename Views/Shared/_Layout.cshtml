@@ -42,13 +42,13 @@
     </div>
     @RenderSection("featured", required: false)
     <section class="content-wrapper main-content clear-fix">
-        @RenderBody()
+        
     </section>
     <div class="vspace40">
         <div class="container marketing">
             <div class="row">
                 <div class="span8">
-                    @{Html.RenderAction("PostList", "Home", new { area="" });}
+                    @RenderBody()
                 </div>
 
                 <div class="span4">

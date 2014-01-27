@@ -16,9 +16,18 @@ namespace Blogger.Controllers
         //
         // GET: /Post/
 
-        public ActionResult Index()
+        public ActionResult Index(int? id , string postName)
         {
-            return View(db.Posts.ToList());
+            var post = db.Posts.Find(id);
+            string realTitle = UrlEncoder.ToFriendlyUrl(post.Name);
+            string urlTitle = (postName ?? "").Trim().ToLower();
+            if (realTitle != urlTitle)
+            {
+                string url = "/Post/" + post.Id + "/" + realTitle;
+                return new RedirectResult(url);
+            } 
+            return View(post);
+            
         }
 
         //

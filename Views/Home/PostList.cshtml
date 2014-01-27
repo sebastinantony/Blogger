@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Blogger.Models.Post>
 
+
 @foreach (var item in Model)
 {
         
@@ -16,7 +17,8 @@
         
     <p>@Html.DisplayFor(modelItem => item.Description) </p>
         
-    <a href="#" class="btn btn-primary pull-right">read more</a>
+    <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)" class="btn btn-primary pull-right" >read more</a>
+    
 
     <hr class="soften">
 }

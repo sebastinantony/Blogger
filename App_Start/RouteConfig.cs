@@ -14,10 +14,20 @@ namespace Blogger
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional } 
+                "Post",
+                "Post/{id}/{postName}",
+                new { controller = "Post", action = "Index", id = UrlParameter.Optional, postName = "" },
+                new[] { "Blogger.Controllers" }
             );
+
+            routes.MapRoute(
+                "Default",
+                "{controller}/{action}/{id}",
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } ,
+                new[] { "Blogger.Controllers" }
+            );
+
+            
         }
     }
 }
