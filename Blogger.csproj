@@ -400,6 +400,7 @@
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\CommentDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

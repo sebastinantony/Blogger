@@ -128,8 +128,9 @@ namespace Blogger.Controllers
         [ChildActionOnly]
         public ActionResult CommentDetails(int? id, string postName)
         {
-            var comment = db.Comments.Find(id);
-
+            var comment = from c in db.Comments
+                          where c.Post.Id == id
+                          select c; 
             return PartialView(comment);
         }
 
