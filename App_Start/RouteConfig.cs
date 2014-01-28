@@ -13,6 +13,8 @@ namespace Blogger
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+           
+
             routes.MapRoute(
                 "Post",
                 "Post/{id}/{postName}",

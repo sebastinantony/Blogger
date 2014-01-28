@@ -135,14 +135,21 @@ namespace Blogger.Controllers
         }
 
         [ChildActionOnly]
+        public ActionResult CommentsCreate()
+        {
+            return PartialView();
+        }
+
+        [ChildActionOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CommentsCreate(Comment comment)
+        public ActionResult CommentsCreate(Comment comment, int ? id)
         {
             string ipAddress = string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.UserHostAddress) ? string.Empty : System.Web.HttpContext.Current.Request.UserHostAddress;
 
             if (ModelState.IsValid)
             {
+                comment.PostId = id;
                 comment.Location = Location.GetContactDetails(BloggerConstants.LocationFinder + ipAddress);
                 comment.IpAddress = ipAddress;
                 comment.Publish = "No";
