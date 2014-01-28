@@ -12,7 +12,7 @@
         
     <h5>
         <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)#comments">
-            <i class="icon-comment"></i>&nbsp;@item.Comments.Count() comments</a>
+            <i class="icon-comment"></i>&nbsp;@item.Comments.Where(c => c.Publish == "Yes").Count() comments</a>
         &nbsp;&nbsp;
     </h5>
         

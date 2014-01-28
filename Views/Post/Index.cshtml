@@ -10,7 +10,7 @@
 <h1>@Html.DisplayFor(model => model.Name)</h1>
 <h4>on @Html.DisplayFor(model => model.Date).</h4>
 <h5>
-    <a href="#comments"><i class="icon-comment"></i>&nbsp;@Model.Comments.Count() comments</a>
+    <a href="#comments"><i class="icon-comment"></i>&nbsp;@Model.Comments.Where(c => c.Publish == "Yes").Count() comments</a>
     &nbsp;&nbsp;
 				</h5>
 
