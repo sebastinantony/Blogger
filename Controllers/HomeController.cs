@@ -82,6 +82,7 @@ namespace Blogger.Controllers
                     
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month),
                     Year = item.Year,
+                    Count = post.Count(),
                     PostList = post
                 };
                 setList.Add(set);

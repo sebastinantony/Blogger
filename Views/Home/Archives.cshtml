@@ -9,12 +9,13 @@
         {
             <li>
                 <h3>@Html.DisplayFor(modelItem => dateItem.Month)
-                    @Html.DisplayFor(modelItem => dateItem.Year)
+                    @Html.DisplayFor(modelItem => dateItem.Year)   (@Html.DisplayFor( modelItem => dateItem.Count))
 
                 </h3>
             </li>
             foreach (var postItem in dateItem.PostList)
             {
+                
             <li>
                 <a href="~/Post/@postItem.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(postItem.Name)" >@postItem.Name </a> 
             </li>
