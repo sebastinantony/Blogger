@@ -15,7 +15,13 @@
     <!-- Included Bootstrap Customization CSS Files -->
     @Styles.Render("~/Content/css/bootstrap-extension.css")
     @Styles.Render("~/Content/css/style.css")
-
+    <script type="text/javascript">
+        function Search() {
+            var searchText = document.getElementById('Search').value;
+            var origin = window.location.origin;
+            window.location.replace( origin + "/Search/" + searchText);
+        }
+    </script>
 
 </head>
 <body>
@@ -32,17 +38,16 @@
                     <ul class="nav">
                         <li><a href="~/">Blog Item</a></li>
                     </ul>
-                    <form class="navbar-form form-search pull-right">
-                        <input id="Search" name="Search" type="text" placeholder="type text to search for" class="input-medium search-query">
-                        <button type="submit" class="btn">Search</button>
-                    </form>
+
+
+                    <input id="Search" name="Search" type="text" placeholder="type text to search for" class="input-medium search-query">
+                    <a href="#" class="btn" onclick="Search()">Search</a>
                 </div>
             </div>
         </div>
     </div>
     @RenderSection("featured", required: false)
     <section class="content-wrapper main-content clear-fix">
-        
     </section>
     <div class="vspace40">
         <div class="container marketing">

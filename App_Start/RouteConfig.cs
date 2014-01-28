@@ -14,6 +14,13 @@ namespace Blogger
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Search",
+                "Search/{keyword}",
+                new { controller = "Search", action = "Index"},
+                new[] { "Blogger.Controllers" }
+            );
+
+            routes.MapRoute(
                 "Category",
                 "Category/{id}/{categoryName}",
                 new { controller ="Category" , action = "Index" , id = UrlParameter.Optional , categoryName = "" } ,
