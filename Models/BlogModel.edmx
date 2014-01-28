@@ -9,13 +9,13 @@
           <EntitySet Name="Category" EntityType="BloggerModel.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Comment" EntityType="BloggerModel.Store.Comment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Post" EntityType="BloggerModel.Store.Post" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Category_Post" Association="BloggerModel.Store.FK_Category_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="Category" EntitySet="Category" />
-          </AssociationSet>
           <AssociationSet Name="FK_Comment_Post" Association="BloggerModel.Store.FK_Comment_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_Category" Association="BloggerModel.Store.FK_Post_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Post" EntitySet="Post" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -25,7 +25,6 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar(max)" />
           <Property Name="Description" Type="varchar(max)" />
-          <Property Name="PostId" Type="int" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -33,9 +32,9 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Email" Type="varbinary(max)" />
           <Property Name="Comment" Type="varchar(max)" />
           <Property Name="Publish" Type="varchar(max)" />
-          <Property Name="Rating" Type="varchar(max)" />
           <Property Name="PostId" Type="int" />
           <Property Name="DateTime" Type="datetime" />
           <Property Name="IpAddress" Type="varchar(max)" />
@@ -50,19 +49,8 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Publish" Type="varchar" MaxLength="5" />
+          <Property Name="CategoryId" Type="int" />
         </EntityType>
-        <Association Name="FK_Category_Post">
-          <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="0..1" />
-          <End Role="Category" Type="BloggerModel.Store.Category" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="PostId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Comment_Post">
           <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="0..1" />
           <End Role="Comment" Type="BloggerModel.Store.Comment" Multiplicity="*" />
@@ -75,6 +63,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Post_Category">
+          <End Role="Category" Type="BloggerModel.Store.Category" Multiplicity="0..1" />
+          <End Role="Post" Type="BloggerModel.Store.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -83,9 +83,9 @@
           <EntitySet Name="Categories" EntityType="BloggerModel.Category" />
           <EntitySet Name="Comments" EntityType="BloggerModel.Comment" />
           <EntitySet Name="Posts" EntityType="BloggerModel.Post" />
-          <AssociationSet Name="FK_Category_Post" Association="BloggerModel.FK_Category_Post">
-            <End Role="Post" EntitySet="Posts" />
+          <AssociationSet Name="FK_Post_Category" Association="BloggerModel.FK_Post_Category">
             <End Role="Category" EntitySet="Categories" />
+            <End Role="Post" EntitySet="Posts" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_Post" Association="BloggerModel.FK_Comment_Post">
             <End Role="Post" EntitySet="Posts" />
@@ -99,8 +99,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="PostId" />
-          <NavigationProperty Name="Post" Relationship="BloggerModel.FK_Category_Post" FromRole="Category" ToRole="Post" />
+          <NavigationProperty Name="Posts" Relationship="BloggerModel.FK_Post_Category" FromRole="Category" ToRole="Post" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -108,9 +107,9 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="Email" MaxLength="Max" FixedLength="false" />
           <Property Type="String" Name="Comment1" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Publish" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Rating" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="PostId" />
           <Property Type="DateTime" Name="DateTime" Precision="3" />
           <Property Type="String" Name="IpAddress" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -126,18 +125,19 @@
           <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
           <Property Type="String" Name="Publish" MaxLength="5" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Categories" Relationship="BloggerModel.FK_Category_Post" FromRole="Post" ToRole="Category" />
+          <Property Type="Int32" Name="CategoryId" />
+          <NavigationProperty Name="Category" Relationship="BloggerModel.FK_Post_Category" FromRole="Post" ToRole="Category" />
           <NavigationProperty Name="Comments" Relationship="BloggerModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
         </EntityType>
-        <Association Name="FK_Category_Post">
-          <End Type="BloggerModel.Post" Role="Post" Multiplicity="0..1" />
-          <End Type="BloggerModel.Category" Role="Category" Multiplicity="*" />
+        <Association Name="FK_Post_Category">
+          <End Type="BloggerModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="BloggerModel.Post" Role="Post" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Post">
+            <Principal Role="Category">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="PostId" />
+            <Dependent Role="Post">
+              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -162,7 +162,6 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="BloggerModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -176,9 +175,9 @@
                 <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="Publish" ColumnName="Publish" />
                 <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -187,6 +186,7 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="BloggerModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Publish" ColumnName="Publish" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

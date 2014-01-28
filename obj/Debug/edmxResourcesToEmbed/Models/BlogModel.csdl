@@ -4,9 +4,9 @@
     <EntitySet Name="Categories" EntityType="BloggerModel.Category" />
     <EntitySet Name="Comments" EntityType="BloggerModel.Comment" />
     <EntitySet Name="Posts" EntityType="BloggerModel.Post" />
-    <AssociationSet Name="FK_Category_Post" Association="BloggerModel.FK_Category_Post">
-      <End Role="Post" EntitySet="Posts" />
+    <AssociationSet Name="FK_Post_Category" Association="BloggerModel.FK_Post_Category">
       <End Role="Category" EntitySet="Categories" />
+      <End Role="Post" EntitySet="Posts" />
     </AssociationSet>
     <AssociationSet Name="FK_Comment_Post" Association="BloggerModel.FK_Comment_Post">
       <End Role="Post" EntitySet="Posts" />
@@ -20,8 +20,7 @@
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="PostId" />
-    <NavigationProperty Name="Post" Relationship="BloggerModel.FK_Category_Post" FromRole="Category" ToRole="Post" />
+    <NavigationProperty Name="Posts" Relationship="BloggerModel.FK_Post_Category" FromRole="Category" ToRole="Post" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -29,9 +28,9 @@
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="Email" MaxLength="Max" FixedLength="false" />
     <Property Type="String" Name="Comment1" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Publish" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="Rating" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="PostId" />
     <Property Type="DateTime" Name="DateTime" Precision="3" />
     <Property Type="String" Name="IpAddress" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -47,18 +46,19 @@
     <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
     <Property Type="String" Name="Publish" MaxLength="5" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Categories" Relationship="BloggerModel.FK_Category_Post" FromRole="Post" ToRole="Category" />
+    <Property Type="Int32" Name="CategoryId" />
+    <NavigationProperty Name="Category" Relationship="BloggerModel.FK_Post_Category" FromRole="Post" ToRole="Category" />
     <NavigationProperty Name="Comments" Relationship="BloggerModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
   </EntityType>
-  <Association Name="FK_Category_Post">
-    <End Type="BloggerModel.Post" Role="Post" Multiplicity="0..1" />
-    <End Type="BloggerModel.Category" Role="Category" Multiplicity="*" />
+  <Association Name="FK_Post_Category">
+    <End Type="BloggerModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="BloggerModel.Post" Role="Post" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Post">
+      <Principal Role="Category">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Category">
-        <PropertyRef Name="PostId" />
+      <Dependent Role="Post">
+        <PropertyRef Name="CategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

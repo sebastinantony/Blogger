@@ -48,6 +48,14 @@
             @Html.ValidationMessageFor(model => model.Publish)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId, "Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>

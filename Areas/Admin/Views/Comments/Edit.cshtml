@@ -41,19 +41,35 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Rating)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Rating)
-            @Html.ValidationMessageFor(model => model.Rating)
-        </div>
-
-        <div class="editor-label">
             @Html.LabelFor(model => model.PostId, "Post")
         </div>
         <div class="editor-field">
             @Html.DropDownList("PostId", String.Empty)
             @Html.ValidationMessageFor(model => model.PostId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateTime)
+            @Html.ValidationMessageFor(model => model.DateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IpAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IpAddress)
+            @Html.ValidationMessageFor(model => model.IpAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
         </div>
 
         <p>

@@ -22,10 +22,16 @@
             @Html.DisplayNameFor(model => model.Publish)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.DisplayNameFor(model => model.Post.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Post.Name)
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
         </th>
         <th></th>
     </tr>
@@ -42,10 +48,16 @@
             @Html.DisplayFor(modelItem => item.Publish)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Rating)
+            @Html.DisplayFor(modelItem => item.Post.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Post.Name)
+            @Html.DisplayFor(modelItem => item.DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IpAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

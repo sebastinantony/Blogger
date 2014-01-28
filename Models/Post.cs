@@ -16,7 +16,6 @@ namespace Blogger.Models
     {
         public Post()
         {
-            this.Categories = new HashSet<Category>();
             this.Comments = new HashSet<Comment>();
         }
     
@@ -25,8 +24,9 @@ namespace Blogger.Models
         public string Description { get; set; }
         public System.DateTime Date { get; set; }
         public string Publish { get; set; }
+        public Nullable<int> CategoryId { get; set; }
     
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

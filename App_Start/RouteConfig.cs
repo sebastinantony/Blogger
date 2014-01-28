@@ -13,7 +13,12 @@ namespace Blogger
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-           
+            routes.MapRoute(
+                "Category",
+                "Category/{id}/{categoryName}",
+                new { controller ="Category" , action = "Index" , id = UrlParameter.Optional , categoryName = "" } ,
+                new [] { "Blogger.Controllers"}
+            );
 
             routes.MapRoute(
                 "Post",

@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2e50f05c752f4804b1661cf0a89b9df1" Name="Diagram1">
-        <EntityTypeShape EntityType="BloggerModel.Category" Width="1.5" PointX="4.0752291716985543" PointY="19.1024972140335" />
-        <EntityTypeShape EntityType="BloggerModel.Comment" Width="1.5" PointX="1.9775301562517558" PointY="30.642771079504289" />
-        <EntityTypeShape EntityType="BloggerModel.Post" Width="1.5" PointX="0.51018074737404517" PointY="8.5788250307453922" />
-        <AssociationConnector Association="BloggerModel.FK_Category_Post" />
+        <EntityTypeShape EntityType="BloggerModel.Category" Width="1.5" PointX="2" PointY="0.75" />
+        <EntityTypeShape EntityType="BloggerModel.Comment" Width="1.5" PointX="5" PointY="2.25" />
+        <EntityTypeShape EntityType="BloggerModel.Post" Width="1.5" PointX="8" PointY="3.75" />
+        <AssociationConnector Association="BloggerModel.FK_Post_Category" />
         <AssociationConnector Association="BloggerModel.FK_Comment_Post" />
       </Diagram>
     </edmx:Diagrams>

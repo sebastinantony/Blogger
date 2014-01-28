@@ -30,14 +30,6 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostId, "Post")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("PostId", String.Empty)
-            @Html.ValidationMessageFor(model => model.PostId)
-        </div>
-
         <p>
             <input type="submit" value="Create" />
         </p>

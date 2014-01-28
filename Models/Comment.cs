@@ -16,9 +16,9 @@ namespace Blogger.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public byte[] Email { get; set; }
         public string Comment1 { get; set; }
         public string Publish { get; set; }
-        public string Rating { get; set; }
         public Nullable<int> PostId { get; set; }
         public Nullable<System.DateTime> DateTime { get; set; }
         public string IpAddress { get; set; }

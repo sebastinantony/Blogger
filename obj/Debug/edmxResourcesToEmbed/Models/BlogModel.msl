@@ -4,7 +4,6 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="BloggerModel.Category">
         <MappingFragment StoreEntitySet="Category">
-          <ScalarProperty Name="PostId" ColumnName="PostId" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -18,9 +17,9 @@
           <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
           <ScalarProperty Name="DateTime" ColumnName="DateTime" />
           <ScalarProperty Name="PostId" ColumnName="PostId" />
-          <ScalarProperty Name="Rating" ColumnName="Rating" />
           <ScalarProperty Name="Publish" ColumnName="Publish" />
           <ScalarProperty Name="Comment1" ColumnName="Comment" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -29,6 +28,7 @@
     <EntitySetMapping Name="Posts">
       <EntityTypeMapping TypeName="BloggerModel.Post">
         <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Publish" ColumnName="Publish" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Description" ColumnName="Description" />

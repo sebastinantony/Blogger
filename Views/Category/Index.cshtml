@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Blogger.Models.Post>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+        
+    <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)#comments">
+        <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+        </a>
+        
+    <h4>Written on @Html.DisplayFor(modelItem => item.Date).</h4>
+        
+    <h5>
+        <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)#comments">
+            <i class="icon-comment"></i>&nbsp;@item.Comments.Where(c => c.Publish == "Yes").Count() comments</a>
+        &nbsp;&nbsp;
+    </h5>
+        
+    <img class="media-object" src="holder.js/800x250" alt="">
+        
+    <p>@Html.DisplayFor(modelItem => item.Description) </p>
+        
+    <a href="/Post/@item.Id/@Blogger.Models.UrlEncoder.ToFriendlyUrl(item.Name)" class="btn btn-primary pull-right" >read more</a>
+    
+
+    <hr class="soften">
+}

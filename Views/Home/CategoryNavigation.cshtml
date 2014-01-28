@@ -7,12 +7,17 @@
         <li class="nav-header">
             <h3>Categories</h3>
         </li>
-        @foreach (var genre in Model)
+        @foreach (var category in Model)
         {
-            <li>@Html.ActionLink(genre.Name,
-                "Browse", "Store",
-                new { Genre = genre.Name }, null)
+            <li>
+                <a href="~/Category/@category.Id/@category.Name"><h3> @category.Name (@category.Posts.Count())</h3></a>
             </li>
+            foreach (var post in category.Posts)
+            {
+                <li>
+                     <a href="~/Post/@post.Id/@post.Name">@post.Name</a>
+                </li> 
+            }
         }
     </ul>
 </div>
